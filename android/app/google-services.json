@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "696165776844",
+    "project_id": "pokemon-app-f2b0a",
+    "storage_bucket": "pokemon-app-f2b0a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696165776844:android:c90c3c3a8633fda0897169",
+        "android_client_info": {
+          "package_name": "com.example.dummy_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTn66oiNdnITGuHt1J8tzHGMbYXGUatd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696165776844:android:9a409d92d63bfbb0897169",
+        "android_client_info": {
+          "package_name": "com.example.news_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTn66oiNdnITGuHt1J8tzHGMbYXGUatd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696165776844:android:c4ee1eaf85dc517e897169",
+        "android_client_info": {
+          "package_name": "com.example.pokemon_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTn66oiNdnITGuHt1J8tzHGMbYXGUatd0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
