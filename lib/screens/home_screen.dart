@@ -1,4 +1,3 @@
-import 'package:dummy_project/screens/login_screen.dart';
 import 'package:dummy_project/screens/post_screen/add_post.dart';
 import 'package:dummy_project/screens/sign_up_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +14,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ref = FirebaseDatabase.instance.ref('Post');
+  final searchFilter = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,47 +35,81 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Column(
+        spacing: 10,
         children: [
-          // Expanded(
-          //   child: FirebaseAnimatedList(
-          //       query: ref,
-          //       itemBuilder: (context, snapshot, animation, index) {
-          //         return ListTile(
-          //           title: Text(snapshot.child('title').value.toString()),
-          //           subtitle: Text('This is post ${index + 1}'),
-          //         );
-          //       }),
-          // ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+            ),
+            child: TextFormField(
+              onChanged: (value) {
+                setState(() {});
+              },
+              controller: searchFilter,
+              decoration: InputDecoration(
+                hintText: 'Search',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
           Expanded(
-              child: StreamBuilder(
-                  stream: ref.onValue,
-                  builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
-                    if (snapshot.hasData) {
-                      Map<dynamic, dynamic> map =
-                          snapshot.data!.snapshot.value as dynamic;
-                      List<dynamic> list = map.values.toList();
-
-                      return ListView.builder(
-                        itemCount: snapshot.data!.snapshot.children.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(list[index]['title']),
-                            subtitle: Text(list[index]['time']),
-                            // subtitle: Text('This is post ${index + 1}'),
-                          );
-                        },
-                      );
-                    } else {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  }))
+            child: FirebaseAnimatedList(
+                query: ref,
+                itemBuilder: (context, snapshot, animation, index) {
+                  final title = snapshot.child('title').value.toString();
+                  if (searchFilter.text.isEmpty) {
+                    return ListTile(
+                      title: Text(title),
+                      subtitle: Text('This is post ${index + 1}'),
+                    );
+                  } else if (title
+                      .toLowerCase()
+                      .contains(searchFilter.text.toLowerCase())) {
+                    return ListTile(
+                      title: Text(title),
+                      subtitle: Text('This is post ${index + 1}'),
+                    );
+                  }
+                  return SizedBox();
+                }),
+          ),
+          // Expanded(
+          //   child: StreamBuilder(
+          //     stream: ref.onValue,
+          //     builder: (context, AsyncSnapshot<DatabaseEvent> snapshot) {
+          //       if (snapshot.hasData) {
+          //         Map<dynamic, dynamic> map =
+          //             snapshot.data!.snapshot.value as dynamic;
+          //         List<dynamic> list = map.values.toList();
+          //         return ListView.builder(
+          //           itemCount: snapshot.data!.snapshot.children.length,
+          //           itemBuilder: (context, index) {
+          //             return ListTile(
+          //               title: Text(
+          //                 list[index]['title'],
+          //               ),
+          //               subtitle: Text(
+          //                 list[index]['time'],
+          //               ),
+          //               // subtitle: Text('This is post ${index + 1}'),
+          //             );
+          //           },
+          //         );
+          //       } else {
+          //         return Center(child: CircularProgressIndicator());
+          //       }
+          //     },
+          //   ),
+          // ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (builder) => AddPost()),
+            MaterialPageRoute(
+              builder: (builder) => AddPost(),
+            ),
           );
         },
         child: Icon(Icons.add),
