@@ -1,4 +1,5 @@
-import 'package:dummy_project/screens/home_screen.dart';
+import 'package:dummy_project/screens/firestore/firestore_list_screen.dart';
+// import 'package:dummy_project/screens/home_screen.dart';
 import 'package:dummy_project/screens/sign_up_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class SplashScreenService {
     if (user != null) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (builder) => HomeScreen()),
+        MaterialPageRoute(builder: (builder) => FirestoreListScreen()),
       );
     } else {
       Navigator.push(
