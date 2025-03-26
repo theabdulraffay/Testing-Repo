@@ -15,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ref = FirebaseDatabase.instance.ref('Post');
   final searchFilter = TextEditingController();
+  final editController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +58,41 @@ class _HomeScreenState extends State<HomeScreen> {
                 query: ref,
                 itemBuilder: (context, snapshot, animation, index) {
                   final title = snapshot.child('title').value.toString();
+                  final id = snapshot.child('id').value.toString();
                   if (searchFilter.text.isEmpty) {
                     return ListTile(
                       title: Text(title),
-                      subtitle: Text('This is post ${index + 1}'),
+                      subtitle: Text(id),
+                      trailing: PopupMenuButton(
+                        icon: Icon(Icons.more_vert),
+                        itemBuilder: (context) => [
+                          PopupMenuItem(
+                            value: 1,
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.pop(context);
+                                showMyDialog(title, id);
+                              },
+                              leading: Icon(Icons.edit),
+                              title: Text('Edit'),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 1,
+                            child: ListTile(
+                              leading: Icon(Icons.delete),
+                              title: Text('Delete'),
+                              onTap: () async {
+                                await ref.child(id).remove().then(
+                                  (value) {
+                                    Navigator.pop(context);
+                                  },
+                                ).onError((error, trace) {});
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   } else if (title
                       .toLowerCase()
@@ -113,6 +145,52 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
         child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  Future<void> showMyDialog(String title, String id) async {
+    editController.text = title;
+    return showDialog(
+      context: context,
+      builder: (builder) => AlertDialog(
+        title: Text('Update'),
+        content: Container(
+          child: TextField(
+            controller: editController,
+            decoration: InputDecoration(
+              hintText: 'Edit Post',
+              border: OutlineInputBorder(),
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Cancle'),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.pop(context);
+              try {
+                await ref.child(id).update(
+                  {
+                    'title': editController.text,
+                  },
+                );
+              } catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(e.toString()),
+                  ),
+                );
+              }
+            },
+            child: Text('Update'),
+          ),
+        ],
       ),
     );
   }

@@ -31,16 +31,22 @@ class _AddPostState extends State<AddPost> {
               // Add post to firebase
 
               try {
-                await databaseRef
-                    .child(DateTime.now().microsecondsSinceEpoch.toString())
-                    .set({
-                  'title': postController.text,
-                  'time': DateTime.now().toIso8601String(),
-                });
+                String time = DateTime.now().microsecondsSinceEpoch.toString();
+                await databaseRef.child(time).set(
+                  {
+                    'title': postController.text,
+                    'id': time,
+                  },
+                );
                 // postController.clear();
               } catch (e) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(e.toString())));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      e.toString(),
+                    ),
+                  ),
+                );
               }
             },
             child: Text('Add'),
