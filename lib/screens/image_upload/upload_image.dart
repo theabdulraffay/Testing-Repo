@@ -21,7 +21,24 @@ class _UploadImageState extends State<UploadImage> {
         title: Text('Upload Image'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          setState(() {
+            ImagePickerService().pickImage().then((value) {
+              setState(() {
+                image = File(value!.path);
+                log(image!.path);
+              });
+            }).onError(((error, stackTrace) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    error.toString(),
+                  ),
+                ),
+              );
+            }));
+          });
+        },
         child: Icon(
           Icons.add,
         ),
@@ -46,14 +63,6 @@ class _UploadImageState extends State<UploadImage> {
               onPressed: () {
                 // Pick image from gallery
                 // Use image picker package
-                setState(() {
-                  ImagePickerService().pickImage().then((value) {
-                    setState(() {
-                      image = File(value!.path);
-                      log(image!.path);
-                    });
-                  });
-                });
               },
               child: Text('Upload Image'),
             ),
