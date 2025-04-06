@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dummy_project/screens/firestore/add_firestore_data.dart';
 import 'package:dummy_project/screens/sign_up_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
+// import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class FirestoreListScreen extends StatefulWidget {
@@ -15,7 +17,12 @@ class FirestoreListScreen extends StatefulWidget {
 class _FirestoreListScreenState extends State<FirestoreListScreen> {
   final editController = TextEditingController();
   final collection = FirebaseFirestore.instance.collection('users');
-  final firestore = FirebaseFirestore.instance.collection('users').snapshots();
+  final firestore = FirebaseFirestore.instance
+      .collection('users')
+      .limit(1)
+      // .where('title', isEqualTo: 'raffay')
+      .orderBy('id', descending: true)
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +66,7 @@ class _FirestoreListScreenState extends State<FirestoreListScreen> {
                         list[index]['title'],
                       ),
                       subtitle: Text(
-                        list[index]['id'],
+                        list[index]['id'] ?? 'hehe',
                       ),
                       trailing: PopupMenuButton(
                         itemBuilder: (context) => [

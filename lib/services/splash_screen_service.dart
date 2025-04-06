@@ -15,7 +15,7 @@ class SplashScreenService {
     if (user != null) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (builder) => UploadImage()),
+        MaterialPageRoute(builder: (builder) => FirestoreListScreen()),
       );
     } else {
       Navigator.push(

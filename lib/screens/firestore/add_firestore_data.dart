@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
+// import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class AddFireStoreData extends StatefulWidget {
@@ -33,9 +33,10 @@ class _AddFireStoreDataState extends State<AddFireStoreData> {
 
               try {
                 String id = DateTime.now().microsecondsSinceEpoch.toString();
+                final doc = firestore.doc();
                 try {
-                  firestore.doc(id).set({
-                    'id': id,
+                  doc.set({
+                    'id': doc.id,
                     'title': postController.text,
                   });
                 } catch (e) {
