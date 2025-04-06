@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dummy_project/screens/firestore/add_firestore_data.dart';
-import 'package:dummy_project/screens/sign_up_screen.dart';
+import 'package:dummy_project/Testing/screens/firestore/add_firestore_data.dart';
+import 'package:dummy_project/Testing/screens/sign_up_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';

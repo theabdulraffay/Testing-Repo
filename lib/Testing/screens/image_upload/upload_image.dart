@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io' show File;
 
-import 'package:dummy_project/screens/image_upload/image_picker_service.dart';
+import 'package:dummy_project/Testing/screens/image_upload/image_picker_service.dart';
 import 'package:flutter/material.dart';
 
 class UploadImage extends StatefulWidget {

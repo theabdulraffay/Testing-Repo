@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:dummy_project/services/splash_screen_service.dart';
+import 'package:dummy_project/Testing/services/splash_screen_service.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {

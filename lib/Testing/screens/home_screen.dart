@@ -1,5 +1,5 @@
-import 'package:dummy_project/screens/post_screen/add_post.dart';
-import 'package:dummy_project/screens/sign_up_screen.dart';
+import 'package:dummy_project/Testing/screens/post_screen/add_post.dart';
+import 'package:dummy_project/Testing/screens/sign_up_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
