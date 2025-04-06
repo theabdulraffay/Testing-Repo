@@ -32,7 +32,7 @@ class _AddFireStoreDataState extends State<AddFireStoreData> {
               // Add post to firebase
 
               try {
-                String id = DateTime.now().microsecondsSinceEpoch.toString();
+                // String id = DateTime.now().microsecondsSinceEpoch.toString();
                 final doc = firestore.doc();
                 try {
                   doc.set({

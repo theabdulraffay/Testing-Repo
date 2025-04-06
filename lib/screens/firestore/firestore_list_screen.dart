@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dummy_project/screens/firestore/add_firestore_data.dart';
@@ -19,10 +20,34 @@ class _FirestoreListScreenState extends State<FirestoreListScreen> {
   final collection = FirebaseFirestore.instance.collection('users');
   final firestore = FirebaseFirestore.instance
       .collection('users')
-      .limit(1)
+      // .limit(1)
       // .where('title', isEqualTo: 'raffay')
       .orderBy('id', descending: true)
       .snapshots();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    listen();
+  }
+
+  void listen() {
+    collection
+        .where('title', isEqualTo: 'raffay')
+        .snapshots()
+        .listen((snapshot) {
+      for (var doc in snapshot.docChanges) {
+        if (doc.type == DocumentChangeType.added) {
+          log('Added: ${doc.doc.data()}');
+        } else if (doc.type == DocumentChangeType.modified) {
+          print('Modified: ${doc.doc.data()}');
+        } else if (doc.type == DocumentChangeType.removed) {
+          print('Removed: ${doc.doc.data()}');
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
