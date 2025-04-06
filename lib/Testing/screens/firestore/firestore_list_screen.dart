@@ -34,7 +34,7 @@ class _FirestoreListScreenState extends State<FirestoreListScreen> {
 
   void listen() {
     collection
-        .where('title', isEqualTo: 'raffay')
+        // .where('title', isEqualTo: 'raffay')
         .snapshots()
         .listen((snapshot) {
       for (var doc in snapshot.docChanges) {
