@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ContinueButton extends StatelessWidget {
+class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const ContinueButton({
+  const CustomButton({
     super.key,
     required this.onPressed,
   });

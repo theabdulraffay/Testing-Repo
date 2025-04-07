@@ -1,17 +1,15 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dummy_project/Testing/screens/home_screen.dart';
-import 'package:dummy_project/Testing/screens/login_screen.dart';
-import 'package:dummy_project/components/continue_button.dart';
+import 'package:dummy_project/components/custom_button.dart';
 import 'package:dummy_project/components/input_field.dart';
 import 'package:dummy_project/components/pass_strength_indicator.dart';
 import 'package:dummy_project/components/password_field.dart';
 import 'package:dummy_project/components/password_requirements.dart';
 import 'package:dummy_project/components/term_and_privacy_text.dart';
+import 'package:dummy_project/screens/create_account_screen/create_account_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 // class SignUpScreen extends StatefulWidget {
 //   const SignUpScreen({super.key});
@@ -213,7 +211,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   const TermsAndPrivacyText(),
                   const SizedBox(height: 16),
-                  ContinueButton(
+                  CustomButton(
                     onPressed: () async {
                       if (_passwordStrength != 'strong') {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -232,6 +230,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             .collection('users')
                             .doc(user.user!.uid)
                             .set({
+                          'uid': user.user!.uid,
                           'firstName': _firstNameController.text,
                           'lastName': _lastNameController.text,
                           'phoneNumber': _phNumberController.text,
@@ -240,7 +239,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeScreen(),
+                              builder: (context) => UserProfileInfoScreen(),
                             ),
                           );
                         }).onError((error, trace) {
