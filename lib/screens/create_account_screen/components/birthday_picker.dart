@@ -24,7 +24,7 @@ class BirthdayPicker extends StatelessWidget {
         if (picked != null) {
           onDateSelected(picked);
 
-          controller.text = picked.toUtc().toString();
+          controller.text = picked.toString();
           // DateFormat('MM/dd/yyyy').format(picked);
         }
       },

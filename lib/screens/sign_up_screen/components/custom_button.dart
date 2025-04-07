@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
+  final String text;
 
   const CustomButton({
     super.key,
     required this.onPressed,
+    required this.text,
   });
 
   @override
@@ -20,7 +22,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
         ),
       ),
-      child: const Text('Agree and continue'),
+      child: Text(text),
     );
   }
 }

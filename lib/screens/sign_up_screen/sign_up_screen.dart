@@ -1,100 +1,15 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dummy_project/components/custom_button.dart';
-import 'package:dummy_project/components/input_field.dart';
-import 'package:dummy_project/components/pass_strength_indicator.dart';
-import 'package:dummy_project/components/password_field.dart';
-import 'package:dummy_project/components/password_requirements.dart';
-import 'package:dummy_project/components/term_and_privacy_text.dart';
+import 'package:dummy_project/screens/sign_up_screen/components/custom_button.dart';
+import 'package:dummy_project/screens/sign_up_screen/components/input_field.dart';
+import 'package:dummy_project/screens/sign_up_screen/components/pass_strength_indicator.dart';
+import 'package:dummy_project/screens/sign_up_screen/components/password_field.dart';
+import 'package:dummy_project/screens/sign_up_screen/components/password_requirements.dart';
+import 'package:dummy_project/screens/sign_up_screen/components/term_and_privacy_text.dart';
 import 'package:dummy_project/screens/create_account_screen/create_account_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-// class SignUpScreen extends StatefulWidget {
-//   const SignUpScreen({super.key});
-
-//   @override
-//   State<SignUpScreen> createState() => _SignUpScreenState();
-// }
-
-// class _SignUpScreenState extends State<SignUpScreen> {
-//   final TextEditingController emailController = TextEditingController();
-//   final TextEditingController passwordController = TextEditingController();
-//   String role = 'Parent';
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: Padding(
-//           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-//           child: Column(
-//             spacing: 20,
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               Text('This is Sign Up Screen'),
-//               TextField(
-//                 controller: emailController,
-//                 decoration: InputDecoration(hintText: 'Email'),
-//               ),
-//               TextField(
-//                 controller: passwordController,
-//                 decoration: InputDecoration(hintText: 'Password'),
-//               ),
-//               DropdownButtonFormField(
-//                 value: 'Parent',
-//                 items: [
-//                   DropdownMenuItem(
-//                     value: 'Parent',
-//                     child: Text('Parent'),
-//                   ),
-//                   DropdownMenuItem(
-//                     value: 'Child',
-//                     child: Text('Child'),
-//                   ),
-//                 ],
-//                 onChanged: (value) {
-//                   role = value.toString();
-//                 },
-//                 decoration: InputDecoration(hintText: 'Select Role'),
-//               ),
-//               ElevatedButton(
-//                 onPressed: () async {
-//                   print(role);
-//                   // try {
-//                   //   await FirebaseAuth.instance.createUserWithEmailAndPassword(
-//                   //     email: emailController.text,
-//                   //     password: passwordController.text,
-//                   //   );
-//                   //   Navigator.push(
-//                   //     context,
-//                   //     MaterialPageRoute(builder: (builder) => HomeScreen()),
-//                   //   );
-//                   // } catch (e) {
-//                   //   ScaffoldMessenger.of(
-//                   //     context,
-//                   //   ).showSnackBar(SnackBar(content: Text(e.toString())));
-//                   // }
-//                 },
-//                 child: const Text('Sign Up'),
-//               ),
-//               TextButton(
-//                 onPressed: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(builder: (builder) => LoginScreen()),
-//                   );
-//                 },
-//                 child: Text('hehe '),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -212,6 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const TermsAndPrivacyText(),
                   const SizedBox(height: 16),
                   CustomButton(
+                    text: 'Agree and continue',
                     onPressed: () async {
                       if (_passwordStrength != 'strong') {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -236,7 +152,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           'phoneNumber': _phNumberController.text,
                           'email': _emailController.text,
                         }).then((value) {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => UserProfileInfoScreen(),

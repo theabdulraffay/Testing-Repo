@@ -1,9 +1,15 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dummy_project/screens/sign_up_screen/components/custom_button.dart';
 import 'package:dummy_project/screens/create_account_screen/components/birthday_picker.dart';
 import 'package:dummy_project/screens/create_account_screen/components/gender_selector.dart';
 import 'package:dummy_project/screens/create_account_screen/components/header_section.dart';
 import 'package:dummy_project/screens/create_account_screen/components/page_indicator.dart';
 import 'package:dummy_project/screens/create_account_screen/components/section_title.dart';
 import 'package:dummy_project/screens/create_account_screen/components/skin_type_selector.dart';
+import 'package:dummy_project/screens/sign_up_screen/sign_up_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserProfileInfoScreen extends StatefulWidget {
@@ -41,11 +47,26 @@ class _UserProfileInfoScreenState extends State<UserProfileInfoScreen> {
             // Handle back button press
           },
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              FirebaseAuth.instance.signOut().then((_) {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => SignUpScreen()));
+              }).catchError((error) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Error signing out: $error')),
+                );
+              });
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const HeaderSection(
               title: 'Tell us about you',
@@ -100,9 +121,30 @@ class _UserProfileInfoScreenState extends State<UserProfileInfoScreen> {
             const SizedBox(height: 16),
 
             // Continue Button
-            ContinueButton(
-              onPressed: () {
-                // Handle continue button press
+            CustomButton(
+              text: 'Continue',
+              onPressed: () async {
+                if (selectedSkinType == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Please select a skin type')),
+                  );
+                } else if (selectedGender == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Please Select Gender')));
+                } else if (selectedBirthday == null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Please Select Birthday')));
+                } else {
+                  final id = FirebaseAuth.instance.currentUser?.uid;
+                  FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(id)
+                      .update({
+                    'skinType': selectedSkinType,
+                    'gender': selectedGender,
+                    'birthday': selectedBirthday,
+                  });
+                }
               },
             ),
           ],
