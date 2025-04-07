@@ -1,4 +1,4 @@
-import 'package:dummy_project/Testing/screens/splash_screen.dart';
+import 'package:dummy_project/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

@@ -57,7 +57,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   MaterialPageRoute(builder: (builder) => LoginScreen()),
                 );
               },
-              child: Text('Login '),
+              child: Text('nana '),
             ),
           ],
         ),

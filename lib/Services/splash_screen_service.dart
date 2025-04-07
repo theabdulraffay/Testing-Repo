@@ -1,5 +1,5 @@
 import 'package:dummy_project/Testing/screens/firestore/firestore_list_screen.dart';
-import 'package:dummy_project/Testing/screens/sign_up_screen.dart';
+import 'package:dummy_project/screens/sign_up_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
