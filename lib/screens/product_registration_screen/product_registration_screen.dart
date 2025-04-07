@@ -18,38 +18,38 @@ class _ProductRegistrationScreenState extends State<ProductRegistrationScreen> {
   final List<Product> _products = [
     Product(
       id: '1',
-      name: 'INFĒRA',
-      imageUrl: 'assets/images/infera_black.png',
+      name: 'INFERA',
+      imageUrl: 'assets/fir.png',
       isSelected: false,
     ),
     Product(
       id: '2',
-      name: 'INFĒRA Mini',
-      imageUrl: 'assets/images/infera_mini.png',
+      name: 'INFERA Mini',
+      imageUrl: 'assets/sec.png',
       isSelected: false,
     ),
     Product(
       id: '3',
       name: 'BLU',
-      imageUrl: 'assets/images/blu.png',
+      imageUrl: 'assets/blu.png',
       isSelected: false,
     ),
     Product(
       id: '4',
-      name: 'INFĒRA',
-      imageUrl: 'assets/images/infera_black.png',
+      name: 'INFERA',
+      imageUrl: 'assets/fir.png',
       isSelected: false,
     ),
     Product(
       id: '5',
-      name: 'INFĒRA Mini',
-      imageUrl: 'assets/images/infera_mini.png',
+      name: 'INFERA Mini',
+      imageUrl: 'assets/sec.png',
       isSelected: false,
     ),
     Product(
       id: '6',
       name: 'BLU',
-      imageUrl: 'assets/images/blu.png',
+      imageUrl: 'assets/blu.png',
       isSelected: false,
     ),
   ];
@@ -104,13 +104,10 @@ class _ProductRegistrationScreenState extends State<ProductRegistrationScreen> {
             SearchField(
                 controller: _searchController,
                 onChanged: (value) {
-                  setState(() {
-                    // Trigger rebuild with filtered products
-                  });
+                  setState(() {});
                 }),
             const SizedBox(height: 20),
 
-            // Products Grid
             Expanded(
               child: ProductGrid(
                 products: filteredProducts,
@@ -127,19 +124,10 @@ class _ProductRegistrationScreenState extends State<ProductRegistrationScreen> {
               ),
             ),
 
-            // Action Buttons
             const SizedBox(height: 20),
             ActionButtons(
-              onSkip: () {
-                // Handle skip action
-              },
-              onContinue: () {
-                // Handle continue action with selected products
-                final selectedProducts =
-                    _products.where((p) => p.isSelected).toList();
-                print(
-                    'Selected products: ${selectedProducts.map((p) => p.name).join(', ')}');
-              },
+              onSkip: () {},
+              onContinue: () {},
             ),
           ],
         ),
