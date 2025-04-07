@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dummy_project/screens/product_registration_screen/product_registration_screen.dart';
 import 'package:dummy_project/screens/sign_up_screen/components/custom_button.dart';
 import 'package:dummy_project/screens/create_account_screen/components/birthday_picker.dart';
 import 'package:dummy_project/screens/create_account_screen/components/gender_selector.dart';
@@ -143,6 +142,17 @@ class _UserProfileInfoScreenState extends State<UserProfileInfoScreen> {
                     'skinType': selectedSkinType,
                     'gender': selectedGender,
                     'birthday': selectedBirthday,
+                  }).then((onValue) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductRegistrationScreen(),
+                      ),
+                    );
+                  }).catchError((error) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Error: $error')),
+                    );
                   });
                 }
               },
