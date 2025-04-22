@@ -1,4 +1,4 @@
-import 'package:dummy_project/Testing/screens/home_screen.dart';
+import 'package:dummy_project/Testing/screens/firestore/firestore_list_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -31,19 +31,23 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
+                final currentContext = context;
+
                 try {
                   await FirebaseAuth.instance.signInWithEmailAndPassword(
                     email: emailController.text,
                     password: passwordController.text,
                   );
+                  if (!mounted) return;
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (builder) => HomeScreen()),
+                    currentContext,
+                    MaterialPageRoute(
+                        builder: (builder) => FirestoreListScreen()),
                   );
                 } catch (e) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(e.toString())));
+                  if (!mounted) return;
+                  ScaffoldMessenger.of(currentContext)
+                      .showSnackBar(SnackBar(content: Text(e.toString())));
                 }
               },
               child: const Text('Sign Up'),

@@ -27,9 +27,8 @@ class _FirestoreListScreenState extends State<FirestoreListScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    listen();
+    // listen();
   }
 
   void listen() {

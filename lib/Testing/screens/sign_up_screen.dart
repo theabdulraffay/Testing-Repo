@@ -1,6 +1,6 @@
-import 'package:dummy_project/Testing/screens/home_screen.dart';
+import 'package:dummy_project/Testing/screens/firestore/firestore_list_screen.dart';
 import 'package:dummy_project/Testing/screens/login_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dummy_project/Testing/services/firebase_users_services.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -34,13 +34,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ElevatedButton(
               onPressed: () async {
                 try {
-                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                  await FirebaseUsersServices().createUser(
                     email: emailController.text,
                     password: passwordController.text,
                   );
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (builder) => HomeScreen()),
+                    MaterialPageRoute(
+                        builder: (builder) => FirestoreListScreen()),
                   );
                 } catch (e) {
                   ScaffoldMessenger.of(
@@ -57,7 +58,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   MaterialPageRoute(builder: (builder) => LoginScreen()),
                 );
               },
-              child: Text('nana '),
+              child: Text('Tap to login '),
             ),
           ],
         ),
